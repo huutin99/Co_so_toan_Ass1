@@ -1,11 +1,23 @@
 """
 	Connected Component Labelling algorithm.
+	Jack Lawrence-Jones, July 2016
 
 	For blob/connected component detection in binary images. Labels each pixel in a given connected component
 	with the same label.
 
 	2 pass implementation using disjoint-set data structure with Union-Find algorithms to record
 	label equivalences.
+
+	O(n) for image containing n pixels.
+
+	Usage:
+		Python:
+			>>> image = Image.open("./binary_image.png")
+			>>> bool_image = image_to_2d_bool_array(image)
+			>>> result = connected_component_labelling(bool_image, 4)
+
+		Terminal (second parameter is connectivity type):
+			$  python ccl.py path/to/image.png 4
 """
 
 import numpy as np
@@ -175,7 +187,7 @@ def print_image(image, width, height):
                 continue
             else:
                 color_label_mapping[pixel] = (random.randint(
-                    0, 255), random.randint(0, 255), random.randint(0, 255))
+                0, 255), random.randint(0, 255), random.randint(0, 255))
             out_data[x, y] = color_label_mapping[pixel]
     print(color_label_mapping)
     output_img.show()
@@ -186,7 +198,7 @@ def image_to_2d_bool_array(image):
     im2 = image.convert('1')
     im2.show()
     arr = np.asarray(im2)
-    arr = arr != 255
+    arr = arr != 255 
 
     return arr
 
@@ -207,3 +219,10 @@ if __name__ == "__main__":
         result = connected_component_labelling(bool_image, connectivity_type)
         print(bool_image)
         print_image(result, len(result[0]), len(result))
+
+
+# Run in Python
+# image = Image.open("./images/second_pass.png")
+# bool_image = image_to_2d_bool_array(image)
+# output = connected_component_labelling(bool_image, CONNECTIVITY_4)
+# print(output)

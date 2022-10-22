@@ -1,3 +1,25 @@
+"""
+	Disjoint-set data structure with Union-Find algorithms
+	------------------------------------------------------
+	Jack Lawrence-Jones, July 2016
+
+	A collection of disjoint integer sets (no sets share any common elements) implemented as a 
+	forest (n disjointed trees) with Union-Find algorithms, optimised using union-by-rank and 
+	path compression.
+	
+	Union-Find requires 3 functions:
+		1. MakeSet(Int x) - make a new set containing a single node (with the value x)
+		2. Find(Node n) - get the representative node of the set containing the node n
+		3. Union(Node a, Node b) - performs the union of the sets containing nodes a and b
+
+	N.B. Rank (of a tree):
+		A measure of the size/depth of a tree (can't use depth due to path compression), 
+		calculated as follows:
+			1. A tree containing only one node has rank 0
+			2. Performing the union of 2 trees with the same rank (r) produces a tree with rank 
+			   r+1
+		The tree's rank is equal to its root node's rank.
+"""
 from node import Node
 
 
@@ -131,3 +153,20 @@ class UnionFind:
 			st = st + ") "
 
 		print(st)
+
+
+
+# Running ######################################################################################
+# [1 2 3] [4]
+# uf = UnionFind()
+
+# one = uf.MakeSet(1)
+# two = uf.MakeSet(2)
+# three = uf.MakeSet(3)
+# four = uf.MakeSet(4)
+
+# uf.Union(two, one)
+# uf.Union(two, three)
+
+# uf.display_all_sets()
+# uf.display_all_nodes()

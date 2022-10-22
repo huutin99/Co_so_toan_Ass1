@@ -131,3 +131,20 @@ class UnionFind:
 			st = st + ") "
 
 		print(st)
+
+
+
+# Running ######################################################################################
+# [1 2 3] [4]
+# uf = UnionFind()
+
+# one = uf.MakeSet(1)
+# two = uf.MakeSet(2)
+# three = uf.MakeSet(3)
+# four = uf.MakeSet(4)
+
+# uf.Union(two, one)
+# uf.Union(two, three)
+
+# uf.display_all_sets()
+# uf.display_all_nodes()

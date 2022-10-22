@@ -207,3 +207,4 @@ if __name__ == "__main__":
         result = connected_component_labelling(bool_image, connectivity_type)
         print(bool_image)
         print_image(result, len(result[0]), len(result))
+

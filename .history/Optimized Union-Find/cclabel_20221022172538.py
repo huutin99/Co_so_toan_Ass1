@@ -14,7 +14,7 @@ import sys
 import math
 import random
 from itertools import product
-from union_find import *
+from un import *
 
 
 def run(img):

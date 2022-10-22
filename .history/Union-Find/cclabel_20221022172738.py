@@ -207,3 +207,10 @@ if __name__ == "__main__":
         result = connected_component_labelling(bool_image, connectivity_type)
         print(bool_image)
         print_image(result, len(result[0]), len(result))
+
+
+# Run in Python
+# image = Image.open("./images/second_pass.png")
+# bool_image = image_to_2d_bool_array(image)
+# output = connected_component_labelling(bool_image, CONNECTIVITY_4)
+# print(output)
