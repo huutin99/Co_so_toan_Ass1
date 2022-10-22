@@ -1,13 +1,3 @@
-"""
-	Connected Component Labelling algorithm.
-
-	For blob/connected component detection in binary images. Labels each pixel in a given connected component
-	with the same label.
-
-	2 pass implementation using disjoint-set data structure with Union-Find algorithms to record
-	label equivalences.
-"""
-
 import numpy as np
 from PIL import Image
 from union_find import UnionFind
@@ -96,11 +86,11 @@ def connected_component_labelling(bool_input_image, connectivity_type=CONNECTIVI
     # 3rd Pass: flatten label list so labels are consecutive integers starting from 1 (in order
     # of top to bottom, left to right)
     # Different implementation of disjoint-set may remove the need for 3rd pass?
-    for y, row in enumerate(labelled_image):
-        for x, pixel_value in enumerate(row):
+    # for y, row in enumerate(labelled_image):
+    #     for x, pixel_value in enumerate(row):
 
-            if pixel_value > 0:  # Foreground pixel
-                labelled_image[y, x] = final_labels[pixel_value]
+    #         if pixel_value > 0:  # Foreground pixel
+    #             labelled_image[y, x] = final_labels[pixel_value]
 
     return labelled_image
 
@@ -156,37 +146,34 @@ def neighbouring_labels(image, connectivity_type, x, y):
     return labels
 
 
-def print_image(image, width, height):
+def print_image(img, width, height):
     """
             Prints a 2D array nicely. For debugging.
     """
-    # for y, row in enumerate(image):
-    #     print(row)
+    colors = []
+    colors.append([])
+    colors.append([])
+    # Displaying distinct components with distinct colors
+    coloured_img = Image.new("RGB", (width, height))
+    coloured_data = coloured_img.load()
 
-    # Image to display the components in a nice, colorful way
-    output_img = Image.new("RGB", (width, height))
-    out_data = output_img.load()
+    for i in range(len(img)):
+        for j in range(len(img[0])):
+            if img[i][j] > 0:
+                if img[i][j] not in colors[0]:
+                    colors[0].append(img[i][j])
+                    colors[1].append((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
 
-    color_label_mapping = {}
-
-    for y, row in enumerate(image):
-        for x, pixel in enumerate(row):
-            if pixel in color_label_mapping:
-                continue
-            else:
-                color_label_mapping[pixel] = (random.randint(
-                    0, 255), random.randint(0, 255), random.randint(0, 255))
-            out_data[x, y] = color_label_mapping[pixel]
-    print(color_label_mapping)
-    output_img.show()
+                ind = colors[0].index(img[i][j])
+                coloured_data[j, i] = colors[1][ind]
+    coloured_img.show()
 
 
 def image_to_2d_bool_array(image):
     image = image.point(lambda p: p > 190 and 255)
-    im2 = image.convert('1')
-    im2.show()
+    im2 = image.convert('L')
     arr = np.asarray(im2)
-    arr = arr != 255
+    arr = arr != 255 
 
     return arr
 
@@ -205,5 +192,4 @@ if __name__ == "__main__":
         image = Image.open(image_path)
         bool_image = image_to_2d_bool_array(image)
         result = connected_component_labelling(bool_image, connectivity_type)
-        print(bool_image)
         print_image(result, len(result[0]), len(result))
